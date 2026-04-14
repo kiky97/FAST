@@ -1,9 +1,7 @@
-import imp
 from sqlalchemy import String, Column, Integer,DateTime,ForeignKey,JSON,Boolean
-from sqlalchemy.orm.path_registry import is_root
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
-from FAST.db.database import Base
+from db.database import Base
 class Story(Base):
     __tablename__ = "stories"
     id = Column(Integer, primary_key=True, index=True)

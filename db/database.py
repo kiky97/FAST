@@ -2,7 +2,16 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-from FAST.core.config import settings
+try:
+    # preferred import for this repo layout
+    from core.config import settings
+except ModuleNotFoundError:  # pragma: no cover
+    # fallback for older/alternate package layouts
+    from core.config import settings
+
+
+
+
 
 engine = create_engine(
     settings.DATABASE_URL

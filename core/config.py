@@ -1,20 +1,22 @@
-from pickle import FALSE
 from typing import List
-from pydantic_settings import BaseSettings
+
 from pydantic import field_validator
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     API_PREFIX: str = "/api"
-    DEBUG: bool = FALSE
+    DEBUG: bool = False
     DATABASE_URL: str  = ""
+    ALLOWED_ORIGINS: str = ""
     OPENAI_API_KEY:str
     @field_validator("ALLOWED_ORIGINS")
     def validate_allowed_origins(cls, v) -> List[str]:
         return v.split(",") if v else []
 
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
-        case_sensitive = True
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        case_sensitive=True,
+    )
 settings = Settings()
     
